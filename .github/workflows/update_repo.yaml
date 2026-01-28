@@ -48,12 +48,14 @@ jobs:
       run: |
         cd fdroid
         fdroid update -c
+        mkdir -p _static/fdroid/repo
+        cp -pr fdroid/repo _static/fdroid
 
     - name: Upload static files as artifact
       id: deployment
       uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
       with:
-        path: fdroid/repo
+        path: _static
 
   # Deployment job
   deploy:
