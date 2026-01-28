@@ -46,8 +46,9 @@ jobs:
     - name: Build repo files
       id: build
       run: |
-        cd fdroid
+        pushd fdroid
         fdroid update -c
+        popd
         mkdir -p _static/fdroid/repo
         cp -pr fdroid/repo _static/fdroid
 
