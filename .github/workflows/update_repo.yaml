@@ -31,6 +31,7 @@ jobs:
 
     - name: Set up repo secrets
       run: |
+        mkdir fdroid
         echo "${{ secrets.KEYSTORE_P12 }}" | base64 -d - > fdroid/keystore.p12
         echo "${{ secrets.CONFIG_YML }}" | base64 -d - > fdroid/config.yml
 
