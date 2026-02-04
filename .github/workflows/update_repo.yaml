@@ -51,16 +51,17 @@ jobs:
       id: build
       run: |
         pushd fdroid
-        fdroid update -c
+        fdroid update --create-metadata --use-date-from-apk --delete-unknown --rename-apks
+        fdroid update -v
+        
         popd
-        mkdir -p _static/fdroid/repo
-        cp -pr fdroid/repo _static/fdroid
+        
 
     - name: Upload static files as artifact
       id: deployment
       uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
       with:
-        path: _static
+        path: /tmp/fdroid
 
   # Deployment job
   deploy:
