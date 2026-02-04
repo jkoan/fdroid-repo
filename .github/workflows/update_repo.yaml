@@ -41,7 +41,7 @@ jobs:
 
     - name: Download Navit APK's
       run: |
-        mkdir fdroid/repo
+        mkdir -p fdroid/repo
         cd fdroid/repo
         for tag in $(gh -R navit-gps/navit release list --json tagName -q '.[].tagName'); do echo "Start Tag: $tag";gh -R navit-gps/navit release download $tag -p "*.apk" || true; done
       env:
@@ -52,8 +52,9 @@ jobs:
       run: |
         pushd fdroid
         fdroid update --create-metadata --use-date-from-apk --delete-unknown --rename-apks
-        fdroid update -v
-        
+        fdroid update
+        mkdir -p /tmp/fdroid/fdroid
+        fdroid deploy --local-copy-dir /tmp/fdroid/fdroid
         popd
         
 
