@@ -44,6 +44,7 @@ jobs:
         mkdir -p fdroid/repo
         cd fdroid/repo
         for tag in $(gh -R navit-gps/navit release list --json tagName -q '.[].tagName'); do echo "Start Tag: $tag";gh -R navit-gps/navit release download $tag -p "*.apk" || true; done
+        rm *unsigned*.apk
       env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
