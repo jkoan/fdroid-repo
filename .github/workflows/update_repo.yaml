@@ -31,9 +31,13 @@ jobs:
 
     - name: Set up repo secrets
       run: |
-        mkdir fdroid
-        echo "${{ secrets.KEYSTORE_P12 }}" | base64 -d - > fdroid/keystore.p12
-        echo "${{ secrets.CONFIG_YML }}" | base64 -d - > fdroid/config.yml
+        mkdir -p fdroid
+        cd fdroid
+        echo "${{ secrets.KEYSTORE_P12 }}" | base64 -d - > keystore.p12
+        echo "${{ secrets.CONFIG_YML }}" | base64 -d - > config_env.yml
+        yq eval-all '. as $item ireduce ({}; . *+ $item)' config_env.yml config_git.yml > config.yml
+        chmod 0600 config.yml
+
 
     - name: Download Navit APK's
       run: |
