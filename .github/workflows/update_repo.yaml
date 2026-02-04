@@ -37,16 +37,26 @@ jobs:
         echo "${{ secrets.CONFIG_YML }}" | base64 -d - > config_env.yml
         yq eval-all '. as $item ireduce ({}; . *+ $item)' config_env.yml config_git.yml > config.yml
         chmod 0600 config.yml
-
-
-    - name: Download Navit APK's
-      run: |
         mkdir -p fdroid/repo
+
+
+    - name: Download Navit Releae APK's
+      run: |
         cd fdroid/repo
         for tag in $(gh -R navit-gps/navit release list --json tagName -q '.[].tagName'); do echo "Start Tag: $tag";gh -R navit-gps/navit release download $tag -p "*.apk" || true; done
         rm *unsigned*.apk
       env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Download Navit Nightly APK's
+      run: |
+        cd fdroid/repo
+        gh -R navit-gps/navit run list -w 13837238 -s success -b trunk --json databaseId -q '.[].databaseId' -L 3 | xargs -t --replace="{}" gh -R navit-gps/navit run download -D tmp/{} {} -p "F-Droid APK"
+        find -name '*.apk'
+      env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
 
     - name: Build repo files
       id: build
