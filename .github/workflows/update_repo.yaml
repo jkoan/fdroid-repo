@@ -55,6 +55,8 @@ jobs:
         fdroid update --use-date-from-apk --delete-unknown --rename-apks
         mkdir -p /tmp/fdroid/fdroid
         fdroid deploy --local-copy-dir /tmp/fdroid/fdroid
+        cp /tmp/fdroid/fdroid/repo/index.{png,css,html} /tmp/fdroid/fdroid/
+        cp /tmp/fdroid/fdroid/repo/index.{png,css,html} /tmp/fdroid/
         popd
         
 
