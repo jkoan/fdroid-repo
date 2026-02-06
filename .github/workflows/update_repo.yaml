@@ -52,7 +52,6 @@ jobs:
       id: build
       run: |
         pushd fdroid
-        fdroid update --create-metadata 
         fdroid update --use-date-from-apk --delete-unknown --rename-apks
         mkdir -p /tmp/fdroid/fdroid
         fdroid deploy --local-copy-dir /tmp/fdroid/fdroid

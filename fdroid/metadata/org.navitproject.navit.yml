@@ -1,0 +1,23 @@
+AuthorName: 'Navit Team'
+Categories:
+- Navigation
+IssueTracker: 'https://github.com/navit-gps/navit/issues'
+Name: Navit
+SourceCode: 'https://github.com/navit-gps/navit/'
+Summary: 'Navit Navigation Software'
+WebSite: 'https://www.navit-project.org/'
+AllowedAPKSigningKeys: 733732d84e85ef0324e55971147508c5b0737037af69800fd2557bf1052dc34d
+Description: |-
+  Navit is a open source (GPL) car navigation system with routing engine.
+
+  It’s modular design is capable of using vector maps of various formats for routing and rendering of the displayed map. It’s even possible to use multiple maps at a time.
+
+  The user interfaces are designed to work well with touch screen displays. Points of Interest of various formats are displayed on the map.
+
+  The current vehicle position is either read from gpsd or directly from NMEA GPS sensors.
+
+  The routing engine not only calculates an optimal route to your destination, but also generates directions and even speaks to you.
+
+  Navit currently speaks over 70 languages!
+
+  Navit is highly customizable, from map layouts and on-screen display to the details of the routing engine.
