@@ -25,7 +25,6 @@ jobs:
 
     - name: Install F-Droid server software
       run: |
-        sudo add-apt-repository -y ppa:fdroid/fdroidserver
         sudo apt-get -y update
         sudo apt-get -y install --no-install-recommends fdroidserver
 
