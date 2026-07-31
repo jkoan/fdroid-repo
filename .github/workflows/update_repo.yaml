@@ -40,10 +40,16 @@ jobs:
 
     - name: Download Navit APK's
       run: |
-        mkdir -p fdroid/repo
-        cd fdroid/repo
-        for tag in $(gh -R navit-gps/navit release list --json tagName -q '.[].tagName'); do echo "Start Tag: $tag";gh -R navit-gps/navit release download $tag -p "*.apk" || true; done
-        rm *unsigned*.apk *debug*.apk
+          mkdir -p fdroid/repo
+          cd fdroid/repo
+          gh -R navit-gps/navit release list --limit 100 --json tagName,publishedAt -q '.[] | "\(.tagName) \(.publishedAt)"' | while read -r tag date; do
+          echo "Start Tag: $tag (Datum: $date)
+            if gh -R navit-gps/navit release download "$tag" -p "*.apk" --clobber 2>/dev/null; then
+              find . -maxdepth 1 -name "*.apk" -newermt "1 minute ago" -exec touch -d "$date" {} +
+            fi
+          done
+          # remove irrelevant apk's
+          rm -f *unsigned*.apk *debug*.apk
       env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
