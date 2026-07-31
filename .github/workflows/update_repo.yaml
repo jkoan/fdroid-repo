@@ -43,7 +43,7 @@ jobs:
           mkdir -p fdroid/repo
           cd fdroid/repo
           gh -R navit-gps/navit release list --limit 100 --json tagName,publishedAt -q '.[] | "\(.tagName) \(.publishedAt)"' | while read -r tag date; do
-          echo "Start Tag: $tag (Datum: $date)
+          echo "Start Tag: $tag (Datum: $date)"
             if gh -R navit-gps/navit release download "$tag" -p "*.apk" --clobber 2>/dev/null; then
               find . -maxdepth 1 -name "*.apk" -newermt "1 minute ago" -exec touch -d "$date" {} +
             fi
